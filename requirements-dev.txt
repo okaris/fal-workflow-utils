@@ -1,0 +1,3 @@
+git+https://github.com/fal-ai/fal.git#egg=fal&subdirectory=projects/fal
+httpx
+pytest

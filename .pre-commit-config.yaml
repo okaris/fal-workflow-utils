@@ -1,0 +1,48 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+    -   id: trailing-whitespace
+        exclude: ^legacy_registry/
+    -   id: end-of-file-fixer
+        exclude: ^legacy_registry/
+    -   id: check-yaml
+        exclude: ^legacy_registry/
+    -   id: debug-statements
+        exclude: ^legacy_registry/
+    -   id: requirements-txt-fixer
+        exclude: ^legacy_registry/
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v3.2.3
+    hooks:
+    -   id: pyupgrade
+        args: [--py310-plus]
+        exclude: ^legacy_registry/
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.982
+    hooks:
+    -   id: mypy
+        additional_dependencies: ["types-PyYAML", "types-requests"]
+        exclude: ^legacy_registry/
+-   repo: https://github.com/codespell-project/codespell
+    rev: v2.2.2
+    hooks:
+    -   id: codespell
+        exclude: ^legacy_registry/|^registry/audio/whisper/examples.py
+        args: ["--ignore-regex", ".*#.*codespell: ignore"]
+-   repo: https://github.com/hakancelikdev/unimport
+    rev: 0.12.1
+    hooks:
+    -   id: unimport
+        args: [--config, pyproject.toml]
+        exclude: ^legacy_registry/
+-   repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+    -   id: black
+        exclude: ^legacy_registry/
+-   repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.10.1
+    hooks:
+    -   id: isort
+        exclude: ^legacy_registry/

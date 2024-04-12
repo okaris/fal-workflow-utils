@@ -34,8 +34,7 @@ class TeedOutput(BaseModel):
                 width=1246,
                 height=2048,
             )
-            
-        ]
+        ],
     )
 
 
@@ -112,11 +111,13 @@ def run_teed_with_pipeline(
 
     return TeedOutput(image=Image.from_pil(detected_map))
 
+
 def run_teed(
     input: TeedInput,
 ) -> TeedOutput:
     model, device = load_teed()
     return run_teed_with_pipeline(input, model, device)
+
 
 @fal.function(
     requirements=[

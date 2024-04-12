@@ -19,13 +19,24 @@ class TeedInput(BaseModel):
     image_url: str = Field(
         description="Input image url.",
         examples=[
-            "https://storage.googleapis.com/falserverless/model_tests/remove_background/elephant.jpg",
+            "https://storage.googleapis.com/falserverless/model_tests/retoucher/GGsAolHXsAA58vn.jpeg",
         ],
     )
 
 
 class TeedOutput(BaseModel):
-    image: Image = Field(description="The edge map.")
+    image: Image = Field(
+        description="The edge map.",
+        examples=[
+            Image(
+                url="https://storage.googleapis.com/falserverless/model_tests/workflow_utils/teed_output.png",
+                content_type="image/png",
+                width=1246,
+                height=2048,
+            )
+            
+        ]
+    )
 
 
 @fal.cached
@@ -55,7 +66,7 @@ def load_teed():
     return model, device
 
 
-def run_teed(
+def run_teed_with_pipeline(
     input: TeedInput,
     model,
     device,
@@ -101,6 +112,11 @@ def run_teed(
 
     return TeedOutput(image=Image.from_pil(detected_map))
 
+def run_teed(
+    input: TeedInput,
+) -> TeedOutput:
+    model, device = load_teed()
+    return run_teed_with_pipeline(input, model, device)
 
 @fal.function(
     requirements=[
@@ -120,8 +136,7 @@ def run_teed(
 def run_teed_on_fal(
     input: TeedInput,
 ) -> TeedOutput:
-    model, device = load_teed()
-    return run_teed(input, model, device)
+    return run_teed(input)
 
 
 if __name__ == "__main__":

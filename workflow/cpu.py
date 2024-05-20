@@ -1,6 +1,12 @@
 import fal
 
 from workflow.image.edge.teed import TeedInput, TeedOutput, run_teed
+from workflow.image.insightface import (
+    InsightfaceInput,
+    InsightfaceOutput,
+    load_insightface,
+    run_insightface_with_pipeline,
+)
 from workflow.image.mask.utility import (
     BlurMaskInput,
     BlurMaskOutput,
@@ -30,6 +36,10 @@ requirements = [
     "scikit-image==0.23.1",
     "scikit-learn==1.4.2",
     "pydantic==1.10.12",
+    "git+https://github.com/badayvedat/insightface.git@1ffa3405eedcfe4193c3113affcbfc294d0e684f#subdirectory=python-package",
+    "opencv-python",
+    "onnxruntime",
+    "safetensors",
 ]
 
 
@@ -46,6 +56,8 @@ class CpuWorkflowUtils(
     def setup(self):
         # load models
         _ = run_teed(TeedInput(image_url=dummy_image_url))
+        self.insightface_model_url = "buffalo_l"
+        self.insightface_model = load_insightface(self.insightface_model_url)
 
     @fal.endpoint("/teed")
     async def teed(self, input: TeedInput) -> TeedOutput:
@@ -72,6 +84,13 @@ class CpuWorkflowUtils(
         self, input: TransparentImageToMaskInput
     ) -> TransparentImageToMaskOutput:
         return transparent_image_to_mask(input)
+
+    @fal.endpoint("/insightface")
+    async def insightface(self, input: InsightfaceInput) -> InsightfaceOutput:
+        if self.insightface_model_url != input.model_url:
+            self.insightface_model_url = input.model_url
+            self.insightface_model = load_insightface(self.insightface_model_url)
+        return run_insightface_with_pipeline(input, self.insightface_model)
 
 
 @fal.function(

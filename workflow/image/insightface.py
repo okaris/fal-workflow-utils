@@ -3,7 +3,6 @@ from pathlib import Path
 import fal
 import PIL.Image
 from fal.toolkit import FAL_REPOSITORY_DIR, File, Image, download_model_weights
-from fal.toolkit.file.providers.gcp import GoogleStorageRepository
 from fastapi import HTTPException
 from pydantic import BaseModel, Field
 
@@ -319,13 +318,6 @@ def run_insightface_with_pipeline(
         os.makedirs(output_dir, exist_ok=True)
 
     remote_repository = None
-    if os.getenv("GCLOUD_SA_JSON"):
-        remote_repository = GoogleStorageRepository(
-            url_expiration=2 * 24 * 60,  # 2 days, same as fal,
-            bucket_name=os.getenv("GCS_BUCKET_NAME", "fal_file_storage"),
-            folder="face_embeddings",
-        )
-
     # cpu is faster in my tests
     with torch.no_grad():
         model.prepare(ctx_id=0, det_size=(input.det_size_width, input.det_size_height))

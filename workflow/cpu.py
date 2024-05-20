@@ -35,7 +35,7 @@ requirements = [
     "kornia==0.7.2",
     "scikit-image==0.23.1",
     "scikit-learn==1.4.2",
-    "pydantic==1.10.12",
+    "pydantic==1.10.15",
     "git+https://github.com/badayvedat/insightface.git@1ffa3405eedcfe4193c3113affcbfc294d0e684f#subdirectory=python-package",
     "opencv-python",
     "onnxruntime",

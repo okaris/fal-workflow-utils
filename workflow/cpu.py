@@ -24,6 +24,7 @@ from workflow.image.mask.utility import (
     shrink_mask,
     transparent_image_to_mask,
 )
+from workflow.image.utils import ImageOutput, ResizeImageInput, resize_image
 
 dummy_image_url = "https://storage.googleapis.com/falserverless/model_tests/remove_background/elephant.jpg"
 
@@ -91,6 +92,10 @@ class CpuWorkflowUtils(
             self.insightface_model_url = input.model_url
             self.insightface_model = load_insightface(self.insightface_model_url)
         return run_insightface_with_pipeline(input, self.insightface_model)
+
+    @fal.endpoint("/resize-image")
+    async def resize_image(self, input: ResizeImageInput) -> ImageOutput:
+        return resize_image(input)
 
 
 @fal.function(

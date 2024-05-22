@@ -71,23 +71,23 @@ class CpuWorkflowUtils(
     async def teed(self, input: TeedInput) -> TeedOutput:
         return run_teed(input)
 
-    @fal.endpoint("/invert_mask")
+    @fal.endpoint("/invert-mask")
     async def invert_mask(self, input: MaskInput) -> InvertMaskOutput:
         return invert_mask(input)
 
-    @fal.endpoint("/blur_mask")
+    @fal.endpoint("/blur-mask")
     async def blur_mask(self, input: BlurMaskInput) -> BlurMaskOutput:
         return blur_mask(input)
 
-    @fal.endpoint("/grow_mask")
+    @fal.endpoint("/grow-mask")
     async def grow_mask(self, input: GrowMaskInput) -> GrowMaskOutput:
         return grow_mask(input)
 
-    @fal.endpoint("/shrink_mask")
+    @fal.endpoint("/shrink-mask")
     async def shrink_mask(self, input: ShrinkMaskInput) -> ShrinkMaskOutput:
         return shrink_mask(input)
 
-    @fal.endpoint("/transparent_image_to_mask")
+    @fal.endpoint("/transparent-image-to-mask")
     async def transparent_image_to_mask(
         self, input: TransparentImageToMaskInput
     ) -> TransparentImageToMaskOutput:
@@ -104,11 +104,11 @@ class CpuWorkflowUtils(
     async def resize_image(self, input: ResizeImageInput) -> ImageOutput:
         return resize_image(input)
 
-    @fal.endpoint("/regex_replace")
+    @fal.endpoint("/regex-replace")
     async def regex_replace(self, input: RegexReplaceInput) -> TextOutput:
         return regex_replace(input)
 
-    @fal.endpoint("/insert_text")
+    @fal.endpoint("/insert-text")
     async def insert_text(self, input: InsertTextInput) -> TextOutput:
         return insert_text(input)
 

@@ -54,8 +54,8 @@ requirements = [
 class CpuWorkflowUtils(
     fal.App,  # type: ignore
     _scheduler="nomad",
-    max_concurrency=4,
-    min_concurrency=1,
+    max_concurrency=2,
+    min_concurrency=0,
     keep_alive=300,
 ):
     requirements = requirements

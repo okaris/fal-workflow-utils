@@ -89,7 +89,7 @@ class FaceDetection(BaseModel):
     )
     embedding_file: File = Field(
         description="Embedding of the face.",
-        examples="",
+        examples=[""],
     )
     sex: str | None = Field(
         description="Either M or F if available.",
@@ -126,7 +126,7 @@ class InsightfaceOutput(BaseModel):
     )
     embedding_file: File = Field(
         description="Embedding of the face.",
-        examples="",
+        examples=[""],
     )
     sex: str | None = Field(
         description="Either M or F if available.",

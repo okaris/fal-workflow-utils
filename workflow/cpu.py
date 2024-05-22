@@ -25,6 +25,13 @@ from workflow.image.mask.utility import (
     transparent_image_to_mask,
 )
 from workflow.image.utils import ImageOutput, ResizeImageInput, resize_image
+from workflow.text.text_utils import (
+    InsertTextInput,
+    RegexReplaceInput,
+    TextOutput,
+    insert_text,
+    regex_replace,
+)
 
 dummy_image_url = "https://storage.googleapis.com/falserverless/model_tests/remove_background/elephant.jpg"
 
@@ -96,6 +103,14 @@ class CpuWorkflowUtils(
     @fal.endpoint("/resize-image")
     async def resize_image(self, input: ResizeImageInput) -> ImageOutput:
         return resize_image(input)
+
+    @fal.endpoint("/regex_replace")
+    async def regex_replace(self, input: RegexReplaceInput) -> TextOutput:
+        return regex_replace(input)
+
+    @fal.endpoint("/insert_text")
+    async def insert_text(self, input: InsertTextInput) -> TextOutput:
+        return insert_text(input)
 
 
 @fal.function(
